@@ -8,13 +8,15 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Gerenciamento de veiculo'),
+        title: const Text('Gerenciamento de Veículos'),
         actions: [
           IconButton(
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const AddVehiclePage()),
+                MaterialPageRoute(
+                  builder: (context) => const AddVehiclePage(),
+                ),
               );
             },
             icon: const Icon(Icons.add),
@@ -25,9 +27,9 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
-            Text('Total de veiculos: 0'),
-            Text('Total Gasto: \$0'),
-            Text('Receita total: \$0'),
+            Text('Total de veículos: 0'),
+            Text('Total Gasto: R\$ 0'),
+            Text('Receita total: R\$ 0'),
             Text('Resultado geral: 0%'),
           ],
         ),

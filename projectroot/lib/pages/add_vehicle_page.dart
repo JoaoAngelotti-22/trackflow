@@ -1,114 +1,89 @@
 import 'package:flutter/material.dart';
 
-// Função principal que inicia o app
-void main() {
-  runApp(MyApp());
-}
+class AddVehiclePage extends StatefulWidget {
+  const AddVehiclePage({super.key});
 
-// Classe principal do aplicativo
-class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false, // Remove o banner de debug
-      home: VehicleDashboard(), // Define a tela inicial
-    );
-  }
+  State<AddVehiclePage> createState() => _AddVehiclePageState();
 }
 
-// Tela principal do dashboard de veículos
-class VehicleDashboard extends StatefulWidget {
-  @override
-  _VehicleDashboardState createState() => _VehicleDashboardState();
-}
+class _AddVehiclePageState extends State<AddVehiclePage> {
+  List<int> vehicleList = [];
 
-// Estado da tela principal
-class _VehicleDashboardState extends State<VehicleDashboard> {
-  List<int> vehicleList = []; // Lista para armazenar os veículos
-
-  // Função para adicionar um novo card de veículo
   void _addVehicleCard() {
     setState(() {
       vehicleList.add(vehicleList.length + 1);
     });
   }
 
-  // Função para remover um card de veículo
-  void _removeVehicleCard(int index) {
-    setState(() {
-      vehicleList.removeAt(index);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue,
       appBar: AppBar(
         backgroundColor: Colors.blue,
+        elevation: 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Icon(Icons.arrow_back, color: Colors.white), // Ícone de voltar
-            // Aqui temos que colocar a função de chamar para a página anterior
+            const Icon(Icons.menu, color: Colors.white),
             Column(
               children: [
                 Text(
-                  'Quantidade de veículos\n${vehicleList.length}', // Exibe a quantidade de veículos
+                  'Quantidade de veículos\n${vehicleList.length}',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 12),
+                  style: const TextStyle(color: Colors.white, fontSize: 12),
                 ),
                 Text(
-                  'Resultado Faturamento Líquido\n+ 20% = R\$ ${vehicleList.length * 30}K', // Exibe o resultado financeiro
+                  'Resultado Faturamento Líquido\n+ 20% = R\$ ${vehicleList.length * 30}K',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.greenAccent, fontSize: 12),
+                  style:
+                      const TextStyle(color: Colors.greenAccent, fontSize: 12),
                 ),
               ],
             ),
             IconButton(
-              icon: Icon(Icons.add, color: Colors.white), // Ícone de adicionar
-              onPressed: _addVehicleCard, // Chama a função de adicionar
+              icon: const Icon(Icons.add, color: Colors.white),
+              onPressed: _addVehicleCard,
             ),
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: vehicleList.isEmpty
-            ? Center(
-                child: Text(
-                  'Nenhum veículo adicionado.', // Mensagem quando não há veículos
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
+      body: Container(
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: vehicleList.isEmpty
+              ? const Center(
+                  child: Text(
+                    'Nenhum veículo adicionado.',
+                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: vehicleList.length,
+                  itemBuilder: (context, index) {
+                    return VehicleCard(vehicleNumber: vehicleList[index]);
+                  },
                 ),
-              )
-            : ListView.builder(
-                itemCount: vehicleList.length, // Define o número de cards
-                itemBuilder: (context, index) {
-                  return VehicleCard(
-                    vehicleNumber: vehicleList[index], // Número do veículo
-                    onRemove: () =>
-                        _removeVehicleCard(index), // Função de remoção
-                  );
-                },
-              ),
+        ),
       ),
     );
   }
 }
 
-// Widget que representa o card de veículo
 class VehicleCard extends StatelessWidget {
-  final int vehicleNumber; // Número do veículo
-  final VoidCallback onRemove; // Função de remoção
+  final int vehicleNumber;
 
-  VehicleCard({required this.vehicleNumber, required this.onRemove});
+  const VehicleCard({required this.vehicleNumber});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 8),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       shape: RoundedRectangleBorder(
-        side: BorderSide(color: Colors.blue, width: 1),
-        borderRadius: BorderRadius.circular(5), // Borda arredondada
+        side: const BorderSide(color: Colors.blue, width: 1),
+        borderRadius: BorderRadius.circular(5),
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -120,41 +95,45 @@ class VehicleCard extends StatelessWidget {
                 Container(
                   width: 60,
                   height: 60,
-                  color: Colors.grey[300], // Espaço para foto
-                  child: Center(
-                      child:
-                          Text('Foto\nVeículo', textAlign: TextAlign.center)),
+                  color: Colors.grey[300],
+                  child: const Center(
+                    child: Text(
+                      'Foto\nVeículo',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Modelo $vehicleNumber',
-                          style: TextStyle(
-                              fontWeight:
-                                  FontWeight.bold)), // Modelo do veículo
-                      SizedBox(height: 5),
+                      Text(
+                        'Modelo $vehicleNumber',
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 5),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                            children: const [
                               Text('Faturamento'),
-                              Text('R\$ 15.000'), // Valor fixo de faturamento
+                              Text('R\$ 15.000'),
                             ],
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                            children: const [
                               Text('Custos'),
-                              Text('R\$ 10.000'), // Valor fixo de custos
+                              Text('R\$ 10.000'),
                             ],
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                            children: const [
                               Text('Próxima Revisão'),
                               Text('Trocar óleo: 12k km'),
                               Text('Trocar Pneu: 10k km'),
@@ -166,16 +145,6 @@ class VehicleCard extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: TextButton(
-                onPressed: onRemove, // Botão de remoção
-                child: Text(
-                  'Remover',
-                  style: TextStyle(color: Colors.red),
-                ),
-              ),
             ),
           ],
         ),
