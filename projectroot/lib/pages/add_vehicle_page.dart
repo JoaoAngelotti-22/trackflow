@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Página para adicionar e visualizar veículos
 class AddVehiclePage extends StatefulWidget {
   const AddVehiclePage({super.key});
 
@@ -8,8 +9,10 @@ class AddVehiclePage extends StatefulWidget {
 }
 
 class _AddVehiclePageState extends State<AddVehiclePage> {
+  // Lista para armazenar os veículos adicionados
   List<int> vehicleList = [];
 
+  // Função para adicionar um novo veículo à lista
   void _addVehicleCard() {
     setState(() {
       vehicleList.add(vehicleList.length + 1);
@@ -19,21 +22,23 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.blue, // Cor de fundo da tela
       appBar: AppBar(
-        backgroundColor: Colors.blue,
-        elevation: 0,
+        backgroundColor: Colors.blue, // Cor de fundo da AppBar
+        elevation: 0, // Remove a sombra da AppBar
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Icon(Icons.menu, color: Colors.white),
+            const Icon(Icons.menu, color: Colors.white), // Ícone de menu
             Column(
               children: [
+                // Exibe a quantidade de veículos
                 Text(
                   'Quantidade de veículos\n${vehicleList.length}',
                   textAlign: TextAlign.center,
                   style: const TextStyle(color: Colors.white, fontSize: 12),
                 ),
+                // Exibe o resultado financeiro baseado na quantidade de veículos
                 Text(
                   'Resultado Faturamento Líquido\n+ 20% = R\$ ${vehicleList.length * 30}K',
                   textAlign: TextAlign.center,
@@ -42,6 +47,7 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
                 ),
               ],
             ),
+            // Botão para adicionar um novo veículo
             IconButton(
               icon: const Icon(Icons.add, color: Colors.white),
               onPressed: _addVehicleCard,
@@ -50,16 +56,18 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
         ),
       ),
       body: Container(
-        color: Colors.white,
+        color: Colors.white, // Cor de fundo do corpo da tela
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: vehicleList.isEmpty
+              // Mensagem exibida quando não há veículos adicionados
               ? const Center(
                   child: Text(
                     'Nenhum veículo adicionado.',
                     style: TextStyle(fontSize: 16, color: Colors.grey),
                   ),
                 )
+              // Lista de veículos exibida em formato de cards
               : ListView.builder(
                   itemCount: vehicleList.length,
                   itemBuilder: (context, index) {
@@ -72,8 +80,9 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
   }
 }
 
+// Widget que representa o card de um veículo
 class VehicleCard extends StatelessWidget {
-  final int vehicleNumber;
+  final int vehicleNumber; // Número do veículo
 
   const VehicleCard({required this.vehicleNumber});
 
@@ -82,8 +91,8 @@ class VehicleCard extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8),
       shape: RoundedRectangleBorder(
-        side: const BorderSide(color: Colors.blue, width: 1),
-        borderRadius: BorderRadius.circular(5),
+        side: const BorderSide(color: Colors.blue, width: 1), // Borda azul
+        borderRadius: BorderRadius.circular(5), // Cantos arredondados
       ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -92,6 +101,7 @@ class VehicleCard extends StatelessWidget {
           children: [
             Row(
               children: [
+                // Espaço reservado para a foto do veículo
                 Container(
                   width: 60,
                   height: 60,
@@ -105,10 +115,12 @@ class VehicleCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 10),
+                // Informações detalhadas do veículo
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // Modelo do veículo
                       Text(
                         'Modelo $vehicleNumber',
                         style: const TextStyle(fontWeight: FontWeight.bold),
@@ -117,6 +129,7 @@ class VehicleCard extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          // Faturamento fixo
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: const [
@@ -124,6 +137,7 @@ class VehicleCard extends StatelessWidget {
                               Text('R\$ 15.000'),
                             ],
                           ),
+                          // Custos fixos
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: const [
@@ -131,6 +145,7 @@ class VehicleCard extends StatelessWidget {
                               Text('R\$ 10.000'),
                             ],
                           ),
+                          // Próximas revisões
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: const [
