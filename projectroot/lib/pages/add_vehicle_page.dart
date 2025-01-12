@@ -19,6 +19,13 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
     });
   }
 
+  // Função para remover um veículo da lista
+  void _removeVehicleCard(int vehicleNumber) {
+    setState(() {
+      vehicleList.remove(vehicleNumber);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +78,10 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
               : ListView.builder(
                   itemCount: vehicleList.length,
                   itemBuilder: (context, index) {
-                    return VehicleCard(vehicleNumber: vehicleList[index]);
+                    return VehicleCard(
+                      vehicleNumber: vehicleList[index],
+                      onRemove: () => _removeVehicleCard(vehicleList[index]),
+                    );
                   },
                 ),
         ),
@@ -83,8 +93,9 @@ class _AddVehiclePageState extends State<AddVehiclePage> {
 // Widget que representa o card de um veículo
 class VehicleCard extends StatelessWidget {
   final int vehicleNumber; // Número do veículo
+  final VoidCallback onRemove; // Função para remover o veículo
 
-  const VehicleCard({required this.vehicleNumber});
+  const VehicleCard({required this.vehicleNumber, required this.onRemove});
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +111,7 @@ class VehicleCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Espaço reservado para a foto do veículo
                 Container(
@@ -129,7 +141,6 @@ class VehicleCard extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          // Faturamento fixo
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: const [
@@ -137,7 +148,6 @@ class VehicleCard extends StatelessWidget {
                               Text('R\$ 15.000'),
                             ],
                           ),
-                          // Custos fixos
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: const [
@@ -145,7 +155,6 @@ class VehicleCard extends StatelessWidget {
                               Text('R\$ 10.000'),
                             ],
                           ),
-                          // Próximas revisões
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: const [
@@ -155,6 +164,20 @@ class VehicleCard extends StatelessWidget {
                             ],
                           ),
                         ],
+                      ),
+                      const SizedBox(height: 8),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: ElevatedButton(
+                          onPressed: onRemove,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 4),
+                            textStyle: const TextStyle(fontSize: 10),
+                          ),
+                          child: const Text('Remover'),
+                        ),
                       ),
                     ],
                   ),
