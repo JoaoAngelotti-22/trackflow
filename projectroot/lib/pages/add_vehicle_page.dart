@@ -95,7 +95,7 @@ class VehicleCard extends StatelessWidget {
   final int vehicleNumber; // Número do veículo
   final VoidCallback onRemove; // Função para remover o veículo
 
-  const VehicleCard({required this.vehicleNumber, required this.onRemove});
+  const VehicleCard({super.key, required this.vehicleNumber, required this.onRemove});
 
   @override
   Widget build(BuildContext context) {
