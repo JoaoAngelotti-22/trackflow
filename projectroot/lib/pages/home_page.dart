@@ -143,6 +143,22 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 16),
+                  // Botão "Viagem Agora" adicionado aqui
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/viagem');
+                    },
+                    icon: const Icon(Icons.directions_car, color: Colors.white),
+                    label: const Text('Viage Agora'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
