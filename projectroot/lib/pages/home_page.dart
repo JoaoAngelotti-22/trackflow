@@ -18,16 +18,14 @@ class HomePage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.logout, color: Colors.white),
             onPressed: () {
-              // Voltar para a tela de login
               Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
             },
           ),
         ],
       ),
-      backgroundColor: Colors.blue, // Cor de fundo azul na parte superior
+      backgroundColor: Colors.blue,
       body: Column(
         children: [
-          // Seção de Resumo Financeiro
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(16),
@@ -67,7 +65,6 @@ class HomePage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          // Seção de Ações
           Expanded(
             child: Container(
               width: double.infinity,
@@ -89,8 +86,7 @@ class HomePage extends StatelessWidget {
                   const SizedBox(height: 16),
                   ElevatedButton.icon(
                     onPressed: () {
-                      Navigator.pushNamed(context,
-                          '/addVehicle'); // Rota para a página de adicionar veículo
+                      Navigator.pushNamed(context, '/addVehicle');
                     },
                     icon: const Icon(Icons.add, color: Colors.white),
                     label: const Text('Adicionar Veículo'),
@@ -105,8 +101,7 @@ class HomePage extends StatelessWidget {
                   const SizedBox(height: 16),
                   ElevatedButton.icon(
                     onPressed: () {
-                      Navigator.pushNamed(context,
-                          '/vehicleDetails'); // Rota para a página de detalhes dos veículos
+                      Navigator.pushNamed(context, '/vehicleDetails');
                     },
                     icon: const Icon(Icons.list, color: Colors.white),
                     label: const Text('Visualizar Veículos'),
@@ -121,11 +116,25 @@ class HomePage extends StatelessWidget {
                   const SizedBox(height: 16),
                   ElevatedButton.icon(
                     onPressed: () {
-                      Navigator.pushNamed(context,
-                          '/dashboards'); // Rota para a página de dashboards
+                      Navigator.pushNamed(context, '/dashboards');
                     },
                     icon: const Icon(Icons.dashboard, color: Colors.white),
                     label: const Text('Dashboards'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/assinatura');
+                    },
+                    icon: const Icon(Icons.draw, color: Colors.white),
+                    label: const Text('Assinatura Eletrônica'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       padding: const EdgeInsets.symmetric(vertical: 12),
